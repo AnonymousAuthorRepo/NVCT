@@ -1,0 +1,118 @@
+Non-Volatile Memory Crash Test Tool (NVCT) is a PIN-based crash simulator. The tool simulates a multi-level cache hierarchy with cache coherence and main memory; NVCT also includes a random crash generator, a set of APIs to support the configuration of crash tests and application restart, and a component to examine data inconsistency for post-crash analysis. 
+
+
+--------------------------------------------------
+	Supported platform
+--------------------------------------------------
+1. Linux x86_64
+
+--------------------------------------------------
+	Requirements	
+--------------------------------------------------
+
+0. Ensure you have g++ 4.8.2 or higher as the default compiler and make sure you compile everything with -std=c++11 flag
+
+1. Download and install the latest Pin framework matching your platform from
+http://www.pintool.org/downloads.html. In case you don't download Pin, our build script has an option to automatically download from WWW.
+* I have tested the current release only on Pin 2.14 rev 67254 *
+
+
+--------------------------------------------------
+	Compiling
+--------------------------------------------------
+
+To build NVCT from this repo, simply type "make", if there are error occurs, try build from very begining.
+ 
+
+To build the environment for Non-Volatile Main Memory Crash Test Tool, simply type "sh build.sh"
+This will configure the environment of building Non-Volatile Main Memory Crash Test Tool. 
+
+To fix pin general issue, get root access and run "echo 0 > /proc/sys/kernel/yama/ptrace_scope"
+
+copy Makefile.move to test folder Makefile, "cp Makefile.move test/Makefile"
+
+Change PIN setting and enable c++11, "vim 
+/pin-2.14-71313-gcc.4.4.7-linux/source/tools/Config/makefile.unix.config".
+In line 84 "TOOL_CXXFLAGS_NOOPT", adding "-std=c++11" at the end of the line.
+
+In test folder, run "make"
+This will build the NVCT
+
+--------------------------------------------------
+Documentation of NVCT's key APIs 
+--------------------------------------------------
+
+1. void start_crash(); void end_crash();
+	Description: 
+   		Define where a crash could happen.
+		A crash could happen within the code region encapsulated by the two APIs.
+	Arguments:
+		None
+2. void critical_data(void const *p, char type[], int const size); 
+	Description:
+		Collect the address, type and size information of a critical data object.
+	Arguments:
+		p: critical data object address.
+		type: critical data object type, can be CHAR, INT, FLOAT, DOUBLE, LONG LONG 
+                size: critical data object size.
+
+3. void cache_line_write_back(void const *p);
+	Description:
+		Writes back a dirty cache line containing the address p, and marks the cache line as clean in the cache hierarchy.
+		This API is used to emulate CLWB.
+	Arguments:
+		p: the address need to be written back.
+
+4. void flush_cache_line(void const *p);
+	Description:
+		Flush a cache line containing address p, invalidate this cache line from every level of the cache hierarchy in the cache coherence domain. 
+		This API is used to emulate CLFLUSH and CLFLUSHOPT.
+		
+5. void flush_whole_cache();
+	Description:
+		writes back all modified cache lines in the processor's internal cache to main memory and does not invalidate (flush) the internal caches. 
+		This API is used to emulate WBNOINVD
+
+6. void write_back_invalidate_cache();
+	Description:
+		 Writes back all dirty cache lines in the processor\textquotesingle s cache to main memory and invalidates (flushes) the cache hierarchy. 
+		 This API is used to emulate WBINVD.
+
+6. bool read_cache(void *dst, void const *src, size_t size);
+	Description:
+		 Read specified number of bytes in simulated cache from a source address to a destination address. 
+		 The function returns whether the data in source address is in simulated cache.
+
+7. bool read_memory(void *dst, void const *src, size_t size);
+	Description:
+		 Read specified number of bytes in simulated memory from a source address to a destination address. 
+		 The function returns whether the data in source address is in simulated memory.
+		 
+---------------------------------------------------
+Example to use 
+---------------------------------------------------
+We provide few examples to show how to use NVCT to trigger a crash and recompute based on carsh result. 
+The crash examples can be found under "Benchmarks/CrashTests"; The recomputation examples can be found under "Benchmarks/Recomputation".
+
+
+---------------------------------------------------
+Useful scripts
+---------------------------------------------------
+NVC provides some scripts for doing large amount of crash tests and recompuation tests at the same time by lerveraging Linux screen.
+The scripts can be found under "Scripts"
+
+
+---------------------------------------------------
+General issues
+---------------------------------------------------
+        
+     There is a known problem of using Pin on Linux systems that prevent the use
+     of ptrace attach via the sysctl /proc/sys/kernel/yama/ptrace_scope.
+     In this case Pin is not able to use its default (parent) injection mode.
+     To resolve this, either use the "-injection child" option or 
+     set the kernel/yama/ptrace_scope sysctl to 0. 
+
+So what we do is geting root access and seting the kernel/yama/ptrace_scope sysctl to 0
+
+echo 0 > /proc/sys/kernel/yama/ptrace_scope
+
