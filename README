@@ -21,22 +21,16 @@ http://www.pintool.org/downloads.html. In case you don't download Pin, our build
 	Compiling
 --------------------------------------------------
 
-To build NVCT from this repo, simply type "make", if there are error occurs, try build from very begining.
- 
+0. To build the environment for Non-Volatile Memory Crash Test Tool, simply type "sh build.sh"
+   This will configure the environment of building Non-Volatile Main Memory Crash Test Tool. 
 
-To build the environment for Non-Volatile Main Memory Crash Test Tool, simply type "sh build.sh"
-This will configure the environment of building Non-Volatile Main Memory Crash Test Tool. 
+1. To fix pin general issue, get root access and run "echo 0 > /proc/sys/kernel/yama/ptrace_scope"
 
-To fix pin general issue, get root access and run "echo 0 > /proc/sys/kernel/yama/ptrace_scope"
+2. Change PIN setting and enable c++11, "vim /pin-2.14-71313-gcc.4.4.7-linux/source/tools/Config/makefile.unix.config".
+   In line 84 "TOOL_CXXFLAGS_NOOPT", adding "-std=c++11" at the end of the line.
 
-copy Makefile.move to test folder Makefile, "cp Makefile.move test/Makefile"
-
-Change PIN setting and enable c++11, "vim 
-/pin-2.14-71313-gcc.4.4.7-linux/source/tools/Config/makefile.unix.config".
-In line 84 "TOOL_CXXFLAGS_NOOPT", adding "-std=c++11" at the end of the line.
-
-In test folder, run "make"
-This will build the NVCT
+3. In test folder, run "make"
+   This will build the NVCT
 
 --------------------------------------------------
 Documentation of NVCT's key APIs 
@@ -92,7 +86,8 @@ Documentation of NVCT's key APIs
 Example to use 
 ---------------------------------------------------
 We provide few examples to show how to use NVCT to trigger a crash and recompute based on carsh result. 
-The crash examples can be found under "Benchmarks/CrashTests"; The recomputation examples can be found under "Benchmarks/Recomputation".
+The crash examples can be found under "Benchmarks/CrashTests"; 
+The recomputation examples can be found under "Benchmarks/Recomputation".
 
 
 ---------------------------------------------------
