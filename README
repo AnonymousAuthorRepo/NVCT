@@ -14,7 +14,7 @@ Non-Volatile Memory Crash Test Tool (NVCT) is a PIN-based crash simulator. The t
 
 1. Download and install the latest Pin framework matching your platform from
 http://www.pintool.org/downloads.html. In case you don't download Pin, our build script has an option to automatically download from WWW.
-* I have tested the current release only on Pin 2.14 rev 67254 *
+* I have tested the current release only on Pin 2.14 rev 71313 *
 
 
 --------------------------------------------------
@@ -24,13 +24,20 @@ http://www.pintool.org/downloads.html. In case you don't download Pin, our build
 0. To build the environment for Non-Volatile Memory Crash Test Tool, simply type "sh build.sh"
    This will configure the environment of building Non-Volatile Main Memory Crash Test Tool. 
 
-1. To fix pin general issue, get root access and run "echo 0 > /proc/sys/kernel/yama/ptrace_scope"
+1. Type "make" to build NVCT and related library
 
-2. Change PIN setting and enable c++11, "vim /pin-2.14-71313-gcc.4.4.7-linux/source/tools/Config/makefile.unix.config".
+* To fix pin general issue, get root access and run "echo 0 > /proc/sys/kernel/yama/ptrace_scope"
+
+* Change PIN setting and enable c++11, "vim /pin-2.14-71313-gcc.4.4.7-linux/source/tools/Config/makefile.unix.config".
    In line 84 "TOOL_CXXFLAGS_NOOPT", adding "-std=c++11" at the end of the line.
 
-3. In test folder, run "make"
+* In test folder, run "make"
    This will build the NVCT
+   
+--------------------------------------------------
+	How to run NVCT
+--------------------------------------------------
+
 
 --------------------------------------------------
 Documentation of NVCT's key APIs 
