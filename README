@@ -26,11 +26,14 @@ http://www.pintool.org/downloads.html. In case you don't download Pin, our build
 
 1. Type "make" to build NVCT and related library
 
+If there is PIN test error during building the NVCT: 
 * To fix pin general issue, get root access and run "echo 0 > /proc/sys/kernel/yama/ptrace_scope"
 
+If there is issue about using c++11 to compile:
 * Change PIN setting and enable c++11, "vim /pin-2.14-71313-gcc.4.4.7-linux/source/tools/Config/makefile.unix.config".
    In line 84 "TOOL_CXXFLAGS_NOOPT", adding "-std=c++11" at the end of the line.
 
+If you want to recompile NVCT instead of any other libraies:
 * In test folder, run "make"
    This will build the NVCT
    
