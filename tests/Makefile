@@ -153,8 +153,8 @@ PACKAGE_TARNAME = cctlib
 PACKAGE_URL = 
 PACKAGE_VERSION = 0.1
 PATH_SEPARATOR = :
-PIN_PATH = /home/cc/NVCT/pin-2.14-71313-gcc.4.4.7-linux
-PIN_ROOT = /home/cc/NVCT/pin-2.14-71313-gcc.4.4.7-linux
+PIN_PATH = /home/cc/NVCT/pin-2.14-71313-gcc.4.4.7-linux/
+PIN_ROOT = /home/cc/NVCT/pin-2.14-71313-gcc.4.4.7-linux/
 RANLIB = ranlib
 SET_MAKE = 
 SHELL = /bin/bash
@@ -408,15 +408,20 @@ include $(CONFIG_ROOT)/makefile.config
 	BOOST_LD_FLAGS =  -L$(BOOST_PATH)/lib -Wl,-rpath $(BOOST_PATH)/lib 
 	BOOST_LIBS =  -lboost_filesystem 
 
+$(OBJDIR)dcache$(OBJ_SUFFIX): dcache.cpp ../src/cctlib.H ../src/cctlib.cpp
+	$(CXX) $(CCTLIB_TEST_FLAGS)  $(COMP_OBJ)$@ $<
+
+#$(OBJDIR)dcache$(PINTOOL_SUFFIX): $(OBJDIR)dcache$(OBJ_SUFFIX) $(CCTLIB_SHADOW_BASED_LIBRARY)
+#	$(LINKER) $(TOOL_LDFLAGS) $(LINK_EXE)$@ $< -L../src/$(OBJDIR) $(TOOL_LPATHS)  -lcctlib  $(TOOL_LIBS)  $(CLIENT_LD_FLAGS) $(CLIENT_LIBS)
+
+#$(OBJDIR)cct_client$(OBJ_SUFFIX): cct_client.cpp ../src/cctlib.H
+#	$(CXX) $(CCTLIB_TEST_FLAGS)  $(COMP_OBJ)$@ $<
 
 $(OBJDIR)dcache$(OBJ_SUFFIX): dcache.cpp ../src/cctlib.H ../src/cctlib.cpp
 	$(CXX) $(CCTLIB_TEST_FLAGS) -DHAVE_METRIC_PER_IPNODE $(COMP_OBJ)$@ $<
 
 $(OBJDIR)dcache$(PINTOOL_SUFFIX): $(OBJDIR)dcache$(OBJ_SUFFIX) $(CCTLIB_SHADOW_BASED_PER_IPNODE_METRIC_LIBRARY)
 	$(LINKER) $(TOOL_LDFLAGS) $(LINK_EXE)$@ $< -L../src/$(OBJDIR) $(TOOL_LPATHS)  -lcctlib_metric  $(TOOL_LIBS)  $(CLIENT_LD_FLAGS) $(CLIENT_LIBS)
-
-$(OBJDIR)cct_client$(OBJ_SUFFIX): cct_client.cpp ../src/cctlib.H ../src/cctlib.cpp
-	$(CXX) $(CCTLIB_TEST_FLAGS)  $(COMP_OBJ)$@ $<
 
 $(OBJDIR)cct_client$(PINTOOL_SUFFIX): $(OBJDIR)cct_client$(OBJ_SUFFIX) $(CCTLIB_SHADOW_BASED_LIBRARY)
 	$(LINKER) $(TOOL_LDFLAGS) $(LINK_EXE)$@ $< -L../src/$(OBJDIR) $(TOOL_LPATHS)  -lcctlib  $(TOOL_LIBS)  $(CLIENT_LD_FLAGS) $(CLIENT_LIBS)

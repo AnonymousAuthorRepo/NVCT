@@ -25,11 +25,17 @@ CLIENT_LIBS = $(BOOST_LIBS) $(LIBELF_LIBS)
 CCTLIB_SHADOW_BASED_LIBRARY=../src/$(OBJDIR)libcctlib$(LIB_SUFFIX)
 CCTLIB_TREE_BASED_LIBRARY=../src/$(OBJDIR)libcctlib_tree_based$(LIB_SUFFIX)
 
-$(OBJDIR)cct_client$(OBJ_SUFFIX): dcache.cpp ../src/cctlib.H
-	$(CXX) $(CCTLIB_TEST_FLAGS)  $(COMP_OBJ)$@ $<
+#$(OBJDIR)cct_client$(OBJ_SUFFIX): dcache.cpp ../src/cctlib.H ../src/cctlib.cpp
+#	$(CXX) $(CCTLIB_TEST_FLAGS)  $(COMP_OBJ)$@ $<
 
-$(OBJDIR)cct_client$(PINTOOL_SUFFIX): $(OBJDIR)dcache$(OBJ_SUFFIX) $(CCTLIB_SHADOW_BASED_LIBRARY)
-	$(LINKER) $(TOOL_LDFLAGS) $(LINK_EXE)$@ $< -L../src/$(OBJDIR) $(TOOL_LPATHS)  -lcctlib  $(TOOL_LIBS)  $(CLIENT_LD_FLAGS) $(CLIENT_LIBS)
+#$(OBJDIR)cct_client$(PINTOOL_SUFFIX): $(OBJDIR)dcache$(OBJ_SUFFIX) $(CCTLIB_SHADOW_BASED_LIBRARY)
+#	$(LINKER) $(TOOL_LDFLAGS) $(LINK_EXE)$@ $< -L../src/$(OBJDIR) $(TOOL_LPATHS)  -lcctlib  $(TOOL_LIBS)  $(CLIENT_LD_FLAGS) $(CLIENT_LIBS)
+
+$(OBJDIR)dcache$(OBJ_SUFFIX): dcache.cpp ../src/cctlib.H ../src/cctlib.cpp
+	$(CXX) $(CCTLIB_TEST_FLAGS) -DHAVE_METRIC_PER_IPNODE $(COMP_OBJ)$@ $<
+
+$(OBJDIR)dcache$(PINTOOL_SUFFIX): $(OBJDIR)dcache$(OBJ_SUFFIX) $(CCTLIB_SHADOW_BASED_PER_IPNODE_METRIC_LIBRARY)
+	$(LINKER) $(TOOL_LDFLAGS) $(LINK_EXE)$@ $< -L../src/$(OBJDIR) $(TOOL_LPATHS)  -lcctlib_metric  $(TOOL_LIBS)  $(CLIENT_LD_FLAGS) $(CLIENT_LIBS)
 
 $(OBJDIR)cct_client$(OBJ_SUFFIX): cct_client.cpp ../src/cctlib.H
 	$(CXX) $(CCTLIB_TEST_FLAGS)  $(COMP_OBJ)$@ $<
