@@ -321,15 +321,23 @@ int main()
     if (timeron) timer_stop(T_resid2);
 
     //EasyCrash: flushing critical data objects
-    timer_clear(T_flush);
-    timer_start(T_flush);
-    flush_dcache_range(&r, &r[NR-1]+sizeof(double));
+    //timer_clear(T_flush);
+    //timer_start(T_flush);
+    //flush_dcache_range(&r, &r[NR-1]+sizeof(double));
+    EC(r, sizeof(r));
     clflush(&it);
     mfence();
-    timer_stop(T_flush);
-    tflush += timer_read(T_flush);
+    //timer_stop(T_flush);
+    //tflush += timer_read(T_flush);
     //printf(" After %d iteration the flush time: %15.3f seconds\n\n", it, tflush);
     //}
+
+/*    //checkpoint
+    checkpoint(&u, sizeof(u));
+    checkpoint(&r, sizeof(r));
+    clflush(&it);
+    mfence();
+*/
   }
   printf(" Flush time: %15.3f seconds\n\n", tflush);
   //end_crash();

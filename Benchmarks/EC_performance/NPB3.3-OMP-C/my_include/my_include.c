@@ -31,8 +31,8 @@ void flush_dcache_range(unsigned long start, unsigned long end)
         //local_irq_save(flags);
 
         for (i = 0; i < lines; i++) {
-                _mm_clflushopt(start);
-                //_mm_clflush(start);
+                //_mm_clflushopt(start);
+                _mm_clflush(start);
                 //_mm_clwb(start);
                 start += LINESIZE;
         }
@@ -72,12 +72,13 @@ void end_crash()
 
 void clflush(void* addr)
 {
-	_mm_clflushopt(addr);
+	//_mm_clflushopt(addr);
+	_mm_clflush(addr);
 }
 
 void clwb(void* addr)
 {
-	_mm_clwb(addr);
+	//_mm_clwb(addr);
 }
 
 void mfence()
@@ -87,5 +88,27 @@ void mfence()
 
 void clflushopt( void* addr)
 {
+	//mm_clflushopt(addr);
+}
 
+void checkpoint(void* addr, int size)
+{
+    printf("Making checkpoint ...\n");
+    char* temp = malloc(size);
+    memcpy(temp, addr, size);
+/*
+    int i=0;
+    for(i=0; i< size; i++)
+    {
+	printf("%c\n",temp[i]);
+    }
+ */  
+    flush_dcache_range(temp, temp+size+1);
+    mfence();
+    free(temp);
+}
+
+void EC(void* addr, int size)
+{
+    flush_dcache_range(addr, addr+size+1);
 }

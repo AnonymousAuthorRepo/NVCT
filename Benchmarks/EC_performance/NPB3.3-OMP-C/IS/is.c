@@ -1014,7 +1014,7 @@ printf("buffer size[0] addr is %p\n",bucket_size[0]);
 /*  Start timer  */
     timer_start( 0 );
   //kai
-
+  //EasyCrash: crash test
   consistent_data(&iteration, "int", 1);
   flush_whole_cache();
   start_crash();
@@ -1023,6 +1023,22 @@ printf("buffer size[0] addr is %p\n",bucket_size[0]);
     {
         if( CLASS != 'S' ) printf( "        %d\n", iteration );
         rank( iteration );
+/*
+        //EasyCrash:
+        EC(bucket_ptrs, NUM_BUCKETS);
+	clflush(&iteration);
+        mfence();
+	//printf("Something wrong here!\n");
+*/
+///*
+	//checkpoint:
+	checkpoint(&key_array, sizeof(key_array));
+        checkpoint(&key_buff1, sizeof(key_buff1));
+	checkpoint(&key_buff2, sizeof(key_buff2));
+	checkpoint(&bucket_ptrs, sizeof(bucket_ptrs));
+        clflush(&iteration);
+	mfence();
+//*/
     }
 
   //kai

@@ -12,5 +12,7 @@ extern void end_crash();
 extern void crucial_data(void* addr, char type[], int size);
 extern void readonly_data(void* addr, char type[], int size);
 extern void consistent_data(void* addr, char type[], int size);
+extern void checkpoint(void* addr, int size);                     //checkpoint: make data copy and flush them into stable storage
+extern void EC(void* addr, int size);                             //EasyCrash: flush critical data objects
 
 #endif

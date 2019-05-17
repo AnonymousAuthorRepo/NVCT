@@ -378,13 +378,24 @@ int main(int argc, char *argv[])
     //EasyCrash: flush critical data objects
     timer_clear(T_flush);
     timer_start(T_flush);
-    flush_dcache_range(&p, &p[NA]+sizeof(double));
-    flush_dcache_range(&q, &q[NA]+sizeof(double));
+    EC(&p, sizeof(p));
+    EC(&q, sizeof(q));
     clflush(&it);
     mfence();
     timer_stop(T_flush);
     tflush += timer_read(T_flush);
 */
+///*
+    //checkpoint
+      checkpoint(&p, sizeof(p));
+      checkpoint(&q, sizeof(q));
+      checkpoint(&r, sizeof(r));
+      checkpoint(&z, sizeof(z));
+      checkpoint(&x, sizeof(x));
+      clflush(&it);
+      mfence();
+//*/ 
+
   } // end of main iter inv pow meth
   end_crash();
   timer_stop(T_bench);
@@ -621,10 +632,10 @@ static void conj_grad(int colidx[],
     for (j = 0; j < lastcol - firstcol + 1; j++) {
       p[j] = r[j] + beta*p[j];
     }
-
+/*
     //EasyCrash: flush critical data objects
-    timer_clear(T_flush);
-    timer_start(T_flush);
+    //timer_clear(T_flush);
+    //timer_start(T_flush);
     flush_dcache_range(&p[0], &p[NA]+sizeof(double));
     flush_dcache_range(&q[0], &q[NA]+sizeof(double));
     //flush_dcache_range(&z[0], &z[NA]+sizeof(double));
@@ -632,9 +643,9 @@ static void conj_grad(int colidx[],
     //flush_dcache_range(&x[0], &x[NA]+sizeof(double));
     clflush(&cgit);
     mfence();
-    timer_stop(T_flush);
-    tflush += timer_read(T_flush);
-
+    //timer_stop(T_flush);
+   // tflush += timer_read(T_flush);
+*/
   } // end of do cgit=1,cgitmax
 
   //---------------------------------------------------------------------

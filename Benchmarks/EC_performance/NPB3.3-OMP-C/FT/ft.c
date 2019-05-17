@@ -47,7 +47,7 @@
 #include "randdp.h"
 #include "timers.h"
 #include "print_results.h"
-
+#include "../my_include/my_include.h"
 
 //---------------------------------------------------------------------------
 static dcomplex ty1[MAXDIM][FFTBLOCKPAD_DEFAULT];
@@ -149,6 +149,9 @@ int main(int argc, char *argv[])
   fft(1, u1, u0);
   if (timers_enabled) timer_stop(T_fft);
 
+  //EasyCrash: crash test
+  //flush_whole_cache();
+  //start_crash();
   for (iter = 1; iter <= niter; iter++) {
     if (timers_enabled) timer_start(T_evolve);
     evolve(u0, u1, twiddle, dims[0], dims[1], dims[2]);
@@ -161,7 +164,26 @@ int main(int argc, char *argv[])
     //checksum(iter, u2, dims[0], dims[1], dims[2]);
     checksum(iter, u1, dims[0], dims[1], dims[2]);
     if (timers_enabled) timer_stop(T_checksum);
+///*
+    //EasyCrash:
+   // EC(&ty1, sizeof(ty1));
+   // EC(&ty2, sizeof(ty2));
+    EC(&u0, NTOTALP);
+   // EC(&u1, NTOTALP);
+    clflush(&iter);
+    mfence();
+//*/
+/*    
+    //checkpoint:
+    checkpoint(&ty1, sizeof(ty1));
+    checkpoint(&ty2, sizeof(ty2));
+    checkpoint(&u0, sizeof(u0));
+    checkpoint(&u1, sizeof(u1));
+    clflush(&iter);
+    mfence();
+*/
   }
+  end_crash();
 
   verify(NX, NY, NZ, niter, &verified, &Class);
 

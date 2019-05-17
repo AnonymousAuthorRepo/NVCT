@@ -240,12 +240,44 @@ int main(int argc, char *argv[])
 	consistent_data(&step, "int", 1);
   tflush = 0;
   flush_whole_cache();
-	start_crash();
+  start_crash();
   for (step = 1; step <= niter; step++) {
     if ((step % 20) == 0 || step == 1) {
       printf(" Time step %4d\n", step);
     }
    	adi();
+    //checkpoint
+       printf("Making checkpoing ~\n");
+       char *temp_us = malloc(sizeof(us));
+       char *temp_vs = malloc(sizeof(vs));
+       char *temp_ws = malloc(sizeof(ws));
+       char *temp_qs = malloc(sizeof(qs));
+       char *temp_rho_i = malloc(sizeof(rho_i));
+       strcpy(temp_p, p);
+       strcpy(temp_q, q);
+       strcpy(temp_r, r);
+       strcpy(temp_z, z);
+       strcpy(temp_x, x);
+       if(strcmp(temp_x, x)!= 0)
+          printf("not making data copy\n");
+       flush_dcache_range((unsigned long)temp_p, &temp_p[NA]+sizeof(double));
+       flush_dcache_range((unsigned long)temp_q, &temp_q[NA]+sizeof(double));
+       flush_dcache_range((unsigned long)temp_r, &temp_r[NA]+sizeof(double));
+       flush_dcache_range((unsigned long)temp_z, &temp_z[NA]+sizeof(double));
+       flush_dcache_range((unsigned long)temp_x, &temp_x[NA]+sizeof(double));
+        //flush_dcache_range(p, &p[NA]+sizeof(double));
+        //flush_dcache_range(q, &q[NA]+sizeof(double));
+        //flush_dcache_range(r, &r[NA]+sizeof(double));
+        //flush_dcache_range(z, &z[NA]+sizeof(double));
+        //flush_dcache_range(x, &x[NA]+sizeof(double));
+       mfence();
+       clflush(&it);
+       mfence();
+       free(temp_p);
+       free(temp_q);
+       free(temp_x);
+       free(temp_r);
+       free(temp_z);
   }
 	end_crash();
   timer_stop(1);
