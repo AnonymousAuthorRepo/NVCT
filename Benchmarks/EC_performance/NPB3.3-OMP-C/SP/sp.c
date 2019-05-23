@@ -99,6 +99,7 @@ int k1,k2,k3,k4,k5,k6,k7,k8,k9,k10, k11, k12, k13, k14, k15, k16;
 
 int main(int argc, char *argv[])
 {
+/*   //EC:for crash tests
   //kai
 // crucial_data(grid_points, "int", 3);
 // crucial_data(ce,"double", 13*5);
@@ -143,7 +144,7 @@ int main(int argc, char *argv[])
   consistent_data(&k14, "int", 1);
   consistent_data(&k15, "int", 1);
   consistent_data(&k16, "int", 1);
-
+*/
   int i, niter, step, n3;
   double mflops, t, tmax, trecs[t_last+1];
   logical verified;
@@ -235,7 +236,7 @@ int main(int argc, char *argv[])
   }
   timer_start(1);
 //kai
-	consistent_data(&step, "int", 1);
+  consistent_data(&step, "int", 1);
   flush_whole_cache();
   //start_crash();
   for (step = 1; step <= niter; step++) {
@@ -243,12 +244,33 @@ int main(int argc, char *argv[])
       printf(" Time step %4d\n", step);
     }
     if(step == 5)
-	start_crash();
+	//start_crash();
     if(step == 11)
-        end_crash();
+        //end_crash();
   //  if (step != 2) {   
     adi();
-//    }
+	//EasyCrash: critical data objs: u, us, vs, ws, qs, rho\_i, speed, square
+	//EasyCrash: candidates:  u, us, vs, ws, qs, rho\_i, speed,square, rhs, cv, rhon, rhos, rhoq, lhs, lhsp, lhsm
+//checkpoint 
+    checkpoint(u, KMAX*(JMAXP+1)*(IMAXP+1)*5*sizeof(double));
+    checkpoint(us, KMAX*(JMAXP+1)*(IMAXP+1)*sizeof(double));
+    checkpoint(vs, KMAX*(JMAXP+1)*(IMAXP+1)*sizeof(double));
+    checkpoint(ws, KMAX*(JMAXP+1)*(IMAXP+1)*sizeof(double));
+    checkpoint(qs, KMAX*(JMAXP+1)*(IMAXP+1)*sizeof(double));
+    checkpoint(rho_i, KMAX*(JMAXP+1)*(IMAXP+1)*sizeof(double));
+    checkpoint(speed, KMAX*(JMAXP+1)*(IMAXP+1)*sizeof(double));
+    checkpoint(square, KMAX*(JMAXP+1)*(IMAXP+1)*sizeof(double));
+    checkpoint(rhs, KMAX*(JMAXP+1)*(IMAXP+1)*5*sizeof(double));
+    checkpoint(cv, PROBLEM_SIZE*sizeof(double));
+    checkpoint(rhon, PROBLEM_SIZE*sizeof(double));
+    checkpoint(rhos, PROBLEM_SIZE*sizeof(double));
+    checkpoint(rhoq, PROBLEM_SIZE*sizeof(double));
+    checkpoint(lhs,  (JMAXP+1)*(IMAXP+1)*5*sizeof(double));
+    checkpoint(lhsp, (JMAXP+1)*(IMAXP+1)*5*sizeof(double));
+    checkpoint(lhsm, (JMAXP+1)*(IMAXP+1)*5*sizeof(double));
+    checkpoint(&step, sizeof(step));
+    mfence();
+
   }
 //kai
   //end_crash();

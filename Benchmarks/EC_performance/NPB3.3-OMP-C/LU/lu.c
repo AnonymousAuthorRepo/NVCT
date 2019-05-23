@@ -136,6 +136,8 @@ int k1,k2,k3,k4;
 int main(int argc, char *argv[])
 {
   printf("frc = %lf\n",frc);
+//For crash tests:
+/*
   //kai
 //[ISIZ3][ISIZ2/2*2+1][ISIZ1/2*2+1][5];
    crucial_data(u, "double", ISIZ3*(ISIZ2/2*2+1)*(ISIZ1/2*2+1)*5);
@@ -164,7 +166,7 @@ int main(int argc, char *argv[])
   consistent_data(&k2, "int", 1);
   consistent_data(&k3, "int", 1);
   consistent_data(&k4, "int", 1);
-
+*/
 
   char Class;
   logical verified;

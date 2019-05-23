@@ -1023,6 +1023,8 @@ printf("buffer size[0] addr is %p\n",bucket_size[0]);
     {
         if( CLASS != 'S' ) printf( "        %d\n", iteration );
         rank( iteration );
+        //EasyCrash: candidates of critical data objs: key\_array, key\_buff1, key\_buff2, bucket\_ptrs
+        //EasyCrash: critical data objs: bucket\_ptrs
 /*
         //EasyCrash:
         EC(bucket_ptrs, NUM_BUCKETS);
@@ -1036,7 +1038,7 @@ printf("buffer size[0] addr is %p\n",bucket_size[0]);
         checkpoint(&key_buff1, sizeof(key_buff1));
 	checkpoint(&key_buff2, sizeof(key_buff2));
 	checkpoint(&bucket_ptrs, sizeof(bucket_ptrs));
-        clflush(&iteration);
+        checkpoint(&iteration, sizeof(iteration));
 	mfence();
 //*/
     }

@@ -144,10 +144,10 @@ void ssor(int niter)
     if ((istep % 20) == 0 || istep == itmax || istep == 1) {
       if (niter > 1) printf(" Time step %4d\n", istep);
     }
-    if(istep == 5)
-       start_crash();
-    if(istep == 11)
-       end_crash();
+    //if(istep == 5)
+    //   start_crash();
+    //if(istep == 11)
+    //   end_crash();
 
     //---------------------------------------------------------------------
     // perform SSOR iteration
@@ -381,6 +381,30 @@ void ssor(int niter)
       //}
       break;
     }
+    maxtime = timer_read(1);
+    //EasyCrash: candidates of critical data obj: u, rsd, frct, gs, rho\_i, rsdnm, a, b, c, d, au, bu, cu, du
+    //EasyCrash: critical data objs: u
+    //checkpointing:
+    checkpoint(u, ISIZ3*(ISIZ2/2*2+1)*(ISIZ1/2*2+1)*5*sizeof(double));
+    checkpoint(rsd, sizeof(double)*ISIZ3*(ISIZ2/2*2+1)*(ISIZ1/2*2+1)*5);
+    checkpoint(frct, sizeof(double)*ISIZ3*(ISIZ2/2*2+1)*(ISIZ1/2*2+1)*5);
+    checkpoint(qs, ISIZ3*(ISIZ2/2*2+1)*(ISIZ1/2*2+1)*5*sizeof(double));
+    checkpoint(rho_i, ISIZ3*(ISIZ2/2*2+1)*(ISIZ1/2*2+1)*5*sizeof(double));
+    checkpoint(rsdnm, 5*sizeof(double));
+    checkpoint(a, ISIZ2*(ISIZ1/2*2+1)*5*5*sizeof(double));
+    checkpoint(b, ISIZ2*(ISIZ1/2*2+1)*5*5*sizeof(double));
+    checkpoint(c, ISIZ2*(ISIZ1/2*2+1)*5*5*sizeof(double));
+    checkpoint(d, ISIZ2*(ISIZ1/2*2+1)*5*5*sizeof(double));
+    checkpoint(au,ISIZ2*(ISIZ1/2*2+1)*5*5*sizeof(double));
+    checkpoint(bu,ISIZ2*(ISIZ1/2*2+1)*5*5*sizeof(double));
+    checkpoint(cu,ISIZ2*(ISIZ1/2*2+1)*5*5*sizeof(double));
+    checkpoint(du,ISIZ2*(ISIZ1/2*2+1)*5*5*sizeof(double));
+
+  /*
+     //EC:
+    EC(u, ISIZ3*(ISIZ2/2*2+1)*(ISIZ1/2*2+1)*5*sizeof(double));
+  */
+
   }
 	//kai
 	//if (niter > 1) {
