@@ -32,8 +32,8 @@ void flush_dcache_range(unsigned long start, unsigned long end)
 
         for (i = 0; i < lines; i++) {
                 //_mm_clflushopt(start);
-                _mm_clflush(start);
-                //_mm_clwb(start);
+                //_mm_clflush(start);
+                _mm_clwb(start);
                 start += LINESIZE;
         }
         //local_irq_restore(flags);
@@ -73,7 +73,8 @@ void end_crash()
 void clflush(void* addr)
 {
 	//_mm_clflushopt(addr);
-	_mm_clflush(addr);
+	//_mm_clflush(addr);
+	_mm_clwb(addr);
 }
 
 void clwb(void* addr)
