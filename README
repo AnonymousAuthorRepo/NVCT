@@ -47,17 +47,17 @@ A. Change code in tests/dcache.cpp:
 	The maxmium number of thread application use:               line 62   MAX_THREAD_NUM
 
 B. Knob command flag:
-	> -t   how many thread using in application
-	> -p   private cache num, atmost two thread have one private cache
-	> -s1  l1 cache size in kilobytes
-	> -a1  l1 cache associativity (1 for direct mapped)
-	> -l1  l1 cacheline size in bytes
-	> -s2  l2 cache size in kilobytes
-	> -a2  l2 cache associativity (1 for direct mapped)
-	> -l2  l2 cacheline size in bytes
-	> -s3  l3 cache size in kilobytes
-	> -a3  l3 cache associativity (1 for direct mapped)
-	> -l3  l3 cacheline size in bytes
+	-t   how many thread using in application
+	-p   private cache num, atmost two thread have one private cache
+	-s1  l1 cache size in kilobytes
+	-a1  l1 cache associativity (1 for direct mapped)
+	-l1  l1 cacheline size in bytes
+	-s2  l2 cache size in kilobytes
+	-a2  l2 cache associativity (1 for direct mapped)
+	-l2  l2 cacheline size in bytes
+	-s3  l3 cache size in kilobytes
+	-a3  l3 cache associativity (1 for direct mapped)
+	-l3  l3 cacheline size in bytes
 
 Run NVCT:
 The command to run NVCT is:
