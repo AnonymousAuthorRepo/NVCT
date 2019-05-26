@@ -47,7 +47,7 @@ ${COMMON}/c_wtime.o: ${COMMON}/${WTIME} ../config/make.def
 
 #change for quartz simulation
 ../my_include/my_include.o: ../my_include/my_include.c
-	cd ../my_include; gcc -c ../my_include/my_include.c -mclflushopt -mclwb
+	cd ../my_include; gcc -c ../my_include/my_include.c #-mclflushopt -mclwb
 
 # Normally setparams updates npbparams.h only if the settings (CLASS)
 # have changed. However, we also want to update if the compile options
