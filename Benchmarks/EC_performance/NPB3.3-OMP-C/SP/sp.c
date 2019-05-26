@@ -243,15 +243,15 @@ int main(int argc, char *argv[])
     if ((step % 20) == 0 || step == 1) {
       printf(" Time step %4d\n", step);
     }
-    if(step == 5)
+    //if(step == 5)
 	//start_crash();
-    if(step == 11)
+    //if(step == 11)
         //end_crash();
   //  if (step != 2) {   
     adi();
 	//EasyCrash: critical data objs: u, us, vs, ws, qs, rho\_i, speed, square
 	//EasyCrash: candidates:  u, us, vs, ws, qs, rho\_i, speed,square, rhs, cv, rhon, rhos, rhoq, lhs, lhsp, lhsm
-//checkpoint 
+/*//checkpoint 
     checkpoint(u, KMAX*(JMAXP+1)*(IMAXP+1)*5*sizeof(double));
     checkpoint(us, KMAX*(JMAXP+1)*(IMAXP+1)*sizeof(double));
     checkpoint(vs, KMAX*(JMAXP+1)*(IMAXP+1)*sizeof(double));
@@ -270,7 +270,20 @@ int main(int argc, char *argv[])
     checkpoint(lhsm, (JMAXP+1)*(IMAXP+1)*5*sizeof(double));
     checkpoint(&step, sizeof(step));
     mfence();
-
+//
+*/
+/*
+    EC(u, KMAX*(JMAXP+1)*(IMAXP+1)*5*sizeof(double));
+    EC(us, KMAX*(JMAXP+1)*(IMAXP+1)*sizeof(double));
+    EC(vs, KMAX*(JMAXP+1)*(IMAXP+1)*sizeof(double));
+    EC(ws, KMAX*(JMAXP+1)*(IMAXP+1)*sizeof(double));
+    EC(qs, KMAX*(JMAXP+1)*(IMAXP+1)*sizeof(double));
+    EC(rho_i, KMAX*(JMAXP+1)*(IMAXP+1)*sizeof(double));
+    EC(speed, KMAX*(JMAXP+1)*(IMAXP+1)*sizeof(double));
+    EC(square, KMAX*(JMAXP+1)*(IMAXP+1)*sizeof(double));
+    EC(rhs, KMAX*(JMAXP+1)*(IMAXP+1)*5*sizeof(double));
+    mfence();
+ */
   }
 //kai
   //end_crash();

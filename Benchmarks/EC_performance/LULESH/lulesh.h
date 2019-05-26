@@ -20,7 +20,7 @@
 #include <stdlib.h>
 #include <vector>
 //kai
-#include "my_include.h"
+#include "../my_include/my_include.h"
 //**************************************************
 // Allow flexibility for arithmetic representations
 //**************************************************

@@ -324,7 +324,7 @@ int main()
     //timer_clear(T_flush);
     //timer_start(T_flush);
     //flush_dcache_range(&r, &r[NR-1]+sizeof(double));
-    EC(r, sizeof(r));
+    EC(r, NR*sizeof(double));
     clflush(&it);
     mfence();
     //timer_stop(T_flush);
@@ -333,8 +333,8 @@ int main()
     //}
 
 /*    //checkpoint
-    checkpoint(&u, sizeof(u));
-    checkpoint(&r, sizeof(r));
+    checkpoint(&u, NR*sizeof(double));
+    checkpoint(&r, NR*sizeof(double));
     clflush(&it);
     mfence();
 */

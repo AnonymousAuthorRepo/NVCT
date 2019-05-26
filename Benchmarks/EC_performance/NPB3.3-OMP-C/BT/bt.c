@@ -247,37 +247,36 @@ int main(int argc, char *argv[])
     }
    	adi();
     //checkpoint
-       printf("Making checkpoing ~\n");
-       char *temp_us = malloc(sizeof(us));
-       char *temp_vs = malloc(sizeof(vs));
-       char *temp_ws = malloc(sizeof(ws));
-       char *temp_qs = malloc(sizeof(qs));
-       char *temp_rho_i = malloc(sizeof(rho_i));
-       strcpy(temp_p, p);
-       strcpy(temp_q, q);
-       strcpy(temp_r, r);
-       strcpy(temp_z, z);
-       strcpy(temp_x, x);
-       if(strcmp(temp_x, x)!= 0)
-          printf("not making data copy\n");
-       flush_dcache_range((unsigned long)temp_p, &temp_p[NA]+sizeof(double));
-       flush_dcache_range((unsigned long)temp_q, &temp_q[NA]+sizeof(double));
-       flush_dcache_range((unsigned long)temp_r, &temp_r[NA]+sizeof(double));
-       flush_dcache_range((unsigned long)temp_z, &temp_z[NA]+sizeof(double));
-       flush_dcache_range((unsigned long)temp_x, &temp_x[NA]+sizeof(double));
-        //flush_dcache_range(p, &p[NA]+sizeof(double));
-        //flush_dcache_range(q, &q[NA]+sizeof(double));
-        //flush_dcache_range(r, &r[NA]+sizeof(double));
-        //flush_dcache_range(z, &z[NA]+sizeof(double));
-        //flush_dcache_range(x, &x[NA]+sizeof(double));
-       mfence();
-       clflush(&it);
-       mfence();
-       free(temp_p);
-       free(temp_q);
-       free(temp_x);
-       free(temp_r);
-       free(temp_z);
+    //EasyCrash: candidates of critical data objs: us, vs, ws, qs, rho\_i, square, u, rhs, ue, fjac, njac, lhs
+    //EasyCrash: critical data objs: us, vs, ws, qs, rho\_i, square, u
+/*    checkpoint(us, sizeof(double)*KMAX*(JMAXP+1)*(IMAXP+1));
+    checkpoint(vs, sizeof(double)*KMAX*(JMAXP+1)*(IMAXP+1));
+    checkpoint(ws, sizeof(double)*KMAX*(JMAXP+1)*(IMAXP+1));
+    checkpoint(qs, sizeof(double)*KMAX*(JMAXP+1)*(IMAXP+1));
+    checkpoint(rho_i, sizeof(double)*KMAX*(JMAXP+1)*(IMAXP+1));
+    checkpoint(square, sizeof(double)*KMAX*(JMAXP+1)*(IMAXP+1));
+    checkpoint(u, sizeof(double)* KMAX*(JMAXP+1)*(IMAXP+1)*5);
+    checkpoint(rhs, sizeof(double)* KMAX*(JMAXP+1)*(IMAXP+1)*5);
+    checkpoint(ue, sizeof(double)* (PROBLEM_SIZE+1)*5);
+    checkpoint(fjac, sizeof(double)* (PROBLEM_SIZE+1)*5*5);
+    checkpoint(njac, sizeof(double)* (PROBLEM_SIZE+1)*5*5);
+    checkpoint(lhs, sizeof(double)* (PROBLEM_SIZE+1)*3*5*5);
+    checkpoint(&step, sizeof(step));
+    mfence();
+*/
+
+///*
+    //EasyCrash:
+    EC(us, sizeof(double)*KMAX*(JMAXP+1)*(IMAXP+1));
+    EC(vs, sizeof(double)*KMAX*(JMAXP+1)*(IMAXP+1));
+    EC(ws, sizeof(double)*KMAX*(JMAXP+1)*(IMAXP+1));
+    EC(qs, sizeof(double)*KMAX*(JMAXP+1)*(IMAXP+1));
+    EC(rho_i, sizeof(double)*KMAX*(JMAXP+1)*(IMAXP+1));
+    EC(square, sizeof(double)*KMAX*(JMAXP+1)*(IMAXP+1));
+    EC(u, sizeof(double)* KMAX*(JMAXP+1)*(IMAXP+1)*5);
+    clwb(&step);
+    mfence();
+// */
   }
 	end_crash();
   timer_stop(1);

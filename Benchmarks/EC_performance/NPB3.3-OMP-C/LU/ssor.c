@@ -382,7 +382,7 @@ void ssor(int niter)
       break;
     }
     maxtime = timer_read(1);
-    //EasyCrash: candidates of critical data obj: u, rsd, frct, gs, rho\_i, rsdnm, a, b, c, d, au, bu, cu, du
+ /*   //EasyCrash: candidates of critical data obj: u, rsd, frct, gs, rho\_i, rsdnm, a, b, c, d, au, bu, cu, du
     //EasyCrash: critical data objs: u
     //checkpointing:
     checkpoint(u, ISIZ3*(ISIZ2/2*2+1)*(ISIZ1/2*2+1)*5*sizeof(double));
@@ -400,10 +400,10 @@ void ssor(int niter)
     checkpoint(cu,ISIZ2*(ISIZ1/2*2+1)*5*5*sizeof(double));
     checkpoint(du,ISIZ2*(ISIZ1/2*2+1)*5*5*sizeof(double));
 
-  /*
-     //EC:
-    EC(u, ISIZ3*(ISIZ2/2*2+1)*(ISIZ1/2*2+1)*5*sizeof(double));
   */
+// /*    //EC:
+    EC(u, ISIZ3*(ISIZ2/2*2+1)*(ISIZ1/2*2+1)*5*sizeof(double));
+//  */
 
   }
 	//kai

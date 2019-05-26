@@ -2768,7 +2768,22 @@ int counter = 0;
       counter++;
       //EasyCrash: candidates of critical data objs:
       //EasyCrash: critical data objs:
-      checkpoint();
+      //checkpoint();
+/*      checkpoint(&m_x[0], sizeof(double)* numNode);
+      checkpoint(&m_y[0], sizeof(double)* numNode);
+      checkpoint(&m_z[0], sizeof(double)* numNode);
+      checkpoint(&m_xd[0], sizeof(double)* numNode);
+      checkpoint(&m_yd[0], sizeof(double)* numNode);
+      checkpoint(&m_zd[0], sizeof(double)* numNode);
+      checkpoint(&m_xdd[0], sizeof(double)* numNode);
+      checkpoint(&m_ydd[0], sizeof(double)* numNode);
+      checkpoint(&m_zdd[0], sizeof(double)* numNode);
+      checkpoint(&m_fx[0], sizeof(double)* numNode);
+      checkpoint(&m_fy[0], sizeof(double)* numNode);
+      checkpoint(&m_fz[0], sizeof(double)*numNode);
+      checkpoint(&m_nodalMass[0], sizeof(double)*numNode);
+      checkpoint(&counter, sizeof(counter)); */
+      mfence();
    }
    printf("Total iteration number is %d\n", counter);
 //kai

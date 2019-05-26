@@ -168,17 +168,17 @@ int main(int argc, char *argv[])
     //EasyCrash:
    // EC(&ty1, sizeof(ty1));
    // EC(&ty2, sizeof(ty2));
-    EC(&u0, NTOTALP);
+    EC(&u0, NTOTALP*sizeof(double));
    // EC(&u1, NTOTALP);
     clflush(&iter);
     mfence();
 //*/
 /*    
     //checkpoint:
-    checkpoint(&ty1, sizeof(ty1));
-    checkpoint(&ty2, sizeof(ty2));
-    checkpoint(&u0, sizeof(u0));
-    checkpoint(&u1, sizeof(u1));
+    checkpoint(&ty1, MAXDIM*FFTBLOCKPAD_DEFAULT*sizeof(double));
+    checkpoint(&ty2,  MAXDIM*FFTBLOCKPAD_DEFAULT*sizeof(double));
+    checkpoint(&u0, NTOTALP*sizeof(double));
+    checkpoint(&u1, NTOTALP*sizeof(double));
     clflush(&iter);
     mfence();
 */

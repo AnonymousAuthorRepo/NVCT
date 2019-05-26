@@ -374,18 +374,18 @@ int main(int argc, char *argv[])
     for (j = 0; j < lastcol - firstcol + 1; j++) {
       x[j] = norm_temp2 * z[j];
     }
-/*
+
     //EasyCrash: flush critical data objects
-    timer_clear(T_flush);
-    timer_start(T_flush);
+    //timer_clear(T_flush);
+    //timer_start(T_flush);
     EC(&p, sizeof(p));
     EC(&q, sizeof(q));
     clflush(&it);
     mfence();
-    timer_stop(T_flush);
-    tflush += timer_read(T_flush);
-*/
-///*
+    //timer_stop(T_flush);
+    //tflush += timer_read(T_flush);
+
+/*
     //checkpoint
       checkpoint(&p, sizeof(p));
       checkpoint(&q, sizeof(q));
@@ -394,7 +394,7 @@ int main(int argc, char *argv[])
       checkpoint(&x, sizeof(x));
       clflush(&it);
       mfence();
-//*/ 
+*/ 
 
   } // end of main iter inv pow meth
   end_crash();
