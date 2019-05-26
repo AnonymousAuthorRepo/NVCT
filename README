@@ -134,11 +134,11 @@ The scripts can be found under "Scripts"
 General issues
 ---------------------------------------------------
         
-     There is a known problem of using Pin on Linux systems that prevent the use
+     `There is a known problem of using Pin on Linux systems that prevent the use
      of ptrace attach via the sysctl /proc/sys/kernel/yama/ptrace_scope.
      In this case Pin is not able to use its default (parent) injection mode.
      To resolve this, either use the "-injection child" option or 
-     set the kernel/yama/ptrace_scope sysctl to 0. 
+     set the kernel/yama/ptrace_scope sysctl to 0.` 
 
 So what we do is geting root access and seting the kernel/yama/ptrace_scope sysctl to 0
 
