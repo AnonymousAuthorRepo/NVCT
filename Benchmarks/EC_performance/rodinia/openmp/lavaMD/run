@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-set -ue
-
-./lavaMD -boxes1d 10
