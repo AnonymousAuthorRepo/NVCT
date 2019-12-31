@@ -1,17 +1,21 @@
-Non-Volatile Memory Crash Test Tool (NVCT) is a PIN-based crash simulator. The tool simulates a multi-level cache hierarchy with cache coherence and main memory; NVCT also includes a random crash generator, a set of APIs to support the configuration of crash tests and application restart, and a component to examine data inconsistency for post-crash analysis. 
+#NVCT - Non-volatile Memory Crash Test Tool
 
+--------------------------------------------------
+Non-Volatile Memory Crash Test Tool (NVCT) is a PIN-based crash simulator. The tool simulates a multi-level cache hierarchy with cache coherence and main memory; NVCT also includes a random crash generator, a set of APIs to support the configuration of crash tests and application restart, and a component to examine data inconsistency for post-crash analysis. 
+--------------------------------------------------
+
+--------------------------------------------------
 EasyCrash is a farework which automatically decides which data objects should be persisted and where to to persist them to maximize application recomputability and improve system efficiency.
 EasyCrash is built reply on a large number of crash tests with NVCT. EasyCrash can be found in folder EasyCrash.
+--------------------------------------------------
+## Getting Started
+
+### Supported platform
+
+Linux x86_64
 
 
---------------------------------------------------
-	Supported platform
---------------------------------------------------
-1. Linux x86_64
-
---------------------------------------------------
-	Requirements	
---------------------------------------------------
+### Requirements	
 
 0. Ensure you have g++ 4.8.2 or higher as the default compiler and make sure you compile everything with -std=c++11 flag
 
@@ -20,9 +24,8 @@ http://www.pintool.org/downloads.html. In case you don't download Pin, our build
 * I have tested the current release only on Pin 2.14 rev 71313 *
 
 
---------------------------------------------------
-	Compiling
---------------------------------------------------
+
+### Compiling
 
 0. To build the environment for Non-Volatile Memory Crash Test Tool, simply type "sh build.sh"
    This will configure the environment of building Non-Volatile Main Memory Crash Test Tool. 
@@ -40,9 +43,9 @@ If you want to recompile NVCT instead of any other libraies:
 * In test folder, run "make"
    This will build the NVCT
    
---------------------------------------------------
-	How to run NVCT
---------------------------------------------------
+
+### How to run NVCT
+
 The cache simulator code is in folder "tests". Before run NVCT, change cache configuration first in "tests/dcache.cpp" or by adding KNOB command flag in PIN.
 
 A. Change code in tests/dcache.cpp:
@@ -66,13 +69,16 @@ B. Knob command flag:
 
 Run NVCT:
 The command to run NVCT is:
+```
 /home/cc/NVC/pin-2.14-71313-gcc.4.4.7-linux/intel64/bin/pinbin -p32 /home/cc/tools/NVC/pin-2.14-71313-gcc.4.4.7-linux/ia32/bin/pinbin -t obj-intel64//dcache.so -- /path/to/application 
+```
 
 Crash test for application with single thread can simply use script in folder "tests"
-E.g. ./run /path/to/application
---------------------------------------------------
-Documentation of NVCT's key APIs 
---------------------------------------------------
+```
+./run /path/to/application
+```
+
+### Documentation of NVCT's key APIs 
 
 1. void start_crash(); void end_crash();
 	Description: 
@@ -120,24 +126,17 @@ Documentation of NVCT's key APIs
 		 Read specified number of bytes in simulated memory from a source address to a destination address. 
 		 The function returns whether the data in source address is in simulated memory.
 		 
----------------------------------------------------
-Example to use 
----------------------------------------------------
+### Example to use 
 We provide few examples to show how to use NVCT to trigger a crash and recompute based on carsh result. 
 The crash examples can be found under "Benchmarks/CrashTests"; 
 The recomputation examples can be found under "Benchmarks/Recomputation".
 
+### Useful scripts
 
----------------------------------------------------
-Useful scripts
----------------------------------------------------
 NVC provides some scripts for doing large amount of crash tests and recompuation tests at the same time by lerveraging Linux screen.
 The scripts can be found under "Scripts"
 
-
----------------------------------------------------
-General issues
----------------------------------------------------
+### General issues
         
 > There is a known problem of using Pin on Linux systems that prevent the use
 > of ptrace attach via the sysctl /proc/sys/kernel/yama/ptrace_scope.
