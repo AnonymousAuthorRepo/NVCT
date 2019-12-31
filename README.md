@@ -4,8 +4,8 @@
 Non-Volatile Memory Crash Test Tool (NVCT) is a PIN-based crash simulator. The tool simulates a multi-level cache hierarchy with cache coherence and main memory; NVCT also includes a random crash generator, a set of APIs to support the configuration of crash tests and application restart, and a component to examine data inconsistency for post-crash analysis. 
 
 EasyCrash is a farework which automatically decides which data objects should be persisted and where to to persist them to maximize application recomputability and improve system efficiency.
-> EasyCrash is built reply on a large number of crash tests with NVCT. 
-> EasyCrash can be found in folder [EasyCrash](https://github.com/NVMCrashTester/NVCT/tree/master/EasyCrash). [The folder](https://github.com/NVMCrashTester/NVCT/tree/master/EasyCrash) contains the algorithm and tools to fully automatethe selection of data objects and code regionsand crash tests.
+EasyCrash is built reply on a large number of crash tests with NVCT. 
+EasyCrash can be found in folder [EasyCrash](https://github.com/NVMCrashTester/NVCT/tree/master/EasyCrash). [The folder](https://github.com/NVMCrashTester/NVCT/tree/master/EasyCrash) contains the algorithm and tools to fully automatethe selection of data objects and code regionsand crash tests.
 
 
 ## Getting Started
