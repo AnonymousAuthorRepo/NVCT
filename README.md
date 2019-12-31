@@ -53,7 +53,7 @@ A. Change code in tests/dcache.cpp:
 
 B. Knob command flag:
 
-	```
+```
 	-t   how many thread using in application
 	-p   private cache num, atmost two thread have one private cache
 	-s1  l1 cache size in kilobytes
@@ -65,7 +65,7 @@ B. Knob command flag:
 	-s3  l3 cache size in kilobytes
 	-a3  l3 cache associativity (1 for direct mapped)
 	-l3  l3 cacheline size in bytes
-	```
+```
 
 Run NVCT:
 The command to run NVCT is:
