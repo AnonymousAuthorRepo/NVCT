@@ -68,11 +68,13 @@ B. Knob command flag:
 
 Run NVCT:
 The command to run NVCT is:
+
 ```
 /home/cc/NVC/pin-2.14-71313-gcc.4.4.7-linux/intel64/bin/pinbin -p32 /home/cc/tools/NVC/pin-2.14-71313-gcc.4.4.7-linux/ia32/bin/pinbin -t obj-intel64//dcache.so -- /path/to/application 
 ```
 
 Crash test for application with single thread can simply use script in folder "tests"
+
 ```
 ./run /path/to/application
 ```
