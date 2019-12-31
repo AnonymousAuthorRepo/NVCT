@@ -83,6 +83,7 @@ Crash test for application with single thread can simply use script in folder "t
 
 ### Documentation of NVCT's key APIs 
 
+```
 1. void start_crash(); void end_crash();
 	Description: 
    		Define where a crash could happen.
@@ -128,7 +129,8 @@ Crash test for application with single thread can simply use script in folder "t
 	Description:
 		 Read specified number of bytes in simulated memory from a source address to a destination address. 
 		 The function returns whether the data in source address is in simulated memory.
-		 
+```
+
 ### Example to use 
 We provide few examples to show how to use NVCT to trigger a crash and recompute based on carsh result. 
 The crash examples can be found under "Benchmarks/CrashTests"; 
