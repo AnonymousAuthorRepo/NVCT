@@ -52,6 +52,7 @@ A. Change code in tests/dcache.cpp:
 	The maxmium number of thread application use:               line 62   MAX_THREAD_NUM
 
 B. Knob command flag:
+
 	```
 	-t   how many thread using in application
 	-p   private cache num, atmost two thread have one private cache
